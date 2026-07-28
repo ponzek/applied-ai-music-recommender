@@ -1,0 +1,224 @@
+{
+  "genres": {
+    "pop": {
+      "description": "Pop music emphasizes catchy melodies, hooks, and broad appeal. Modern pop blends electronic production with vocal-driven songwriting.",
+      "related_moods": ["happy", "romantic", "energetic", "hype"],
+      "era_notes": {
+        "1980s": "Synth-driven, dance-oriented pop defined by artists like Michael Jackson and Madonna.",
+        "2020s": "Genre-blending pop with trap influences, autotune, and streaming-optimized production."
+      }
+    },
+    "lofi": {
+      "description": "Lo-fi hip hop and chillhop use dusty samples, vinyl crackle, and mellow beats. Popular for studying, relaxation, and background listening.",
+      "related_moods": ["chill", "focused", "relaxed", "dreamy"],
+      "era_notes": {
+        "2020s": "Exploded via YouTube livestreams and Spotify playlists. Artists like LoRoom create ambient, loop-based tracks."
+      }
+    },
+    "rock": {
+      "description": "Guitar-driven music with strong rhythms and vocal intensity. Spans from classic rock to modern alternative and post-hardcore.",
+      "related_moods": ["intense", "energetic", "aggressive"],
+      "era_notes": {
+        "2010s": "Post-rock and indie rock blended with electronic elements. Stadium rock gave way to festival-oriented sound."
+      }
+    },
+    "alt-rock": {
+      "description": "Alternative rock blends punk energy with melodic songwriting. Known for emotional depth, introspective lyrics, and genre-blending experimentation.",
+      "related_moods": ["melancholic", "dark", "brooding", "intense"],
+      "era_notes": {
+        "2000s": "Post-hardcore and emo-adjacent alt-rock defined by bands like Cold, AFI, and Chevelle. Heavy guitars with vulnerable, emotional vocals."
+      }
+    },
+    "ambient": {
+      "description": "Ambient music prioritizes atmosphere and texture over melody or rhythm. Creates immersive soundscapes for contemplation or relaxation.",
+      "related_moods": ["chill", "relaxed", "peaceful", "ethereal"],
+      "era_notes": {
+        "2010s": "Digital ambient expanded with synthesizers and field recordings. Artists like Orbit Bloom create cosmic, spacey textures."
+      }
+    },
+    "jazz": {
+      "description": "Jazz emphasizes improvisation, swing rhythms, and harmonic complexity. Modern jazz blends with soul, hip-hop, and electronic influences.",
+      "related_moods": ["relaxed", "warm", "romantic", "moody"],
+      "era_notes": {
+        "2010s": "Neo-soul and jazz fusion gained streaming popularity. Café jazz and acoustic jazz became staples of mood playlists."
+      }
+    },
+    "synthwave": {
+      "description": "Retro-futuristic electronic music inspired by 1980s synthesizers, film scores, and video game soundtracks. Heavy on nostalgia and atmosphere.",
+      "related_moods": ["moody", "nostalgic", "dark", "energetic"],
+      "era_notes": {
+        "2020s": "Synthwave crossed into mainstream via TV shows like Stranger Things and video game soundtracks."
+      }
+    },
+    "indie pop": {
+      "description": "Independent pop music with DIY aesthetics, jangly guitars, and optimistic melodies. Less polished than mainstream pop, more personal.",
+      "related_moods": ["happy", "breezy", "romantic", "warm"],
+      "era_notes": {
+        "2020s": "Bedroom pop and indie pop became dominant on TikTok and Spotify Discover playlists."
+      }
+    },
+    "r&b": {
+      "description": "Rhythm and blues blends soulful vocals with groove-oriented production. Modern R&B incorporates hip-hop beats and electronic textures.",
+      "related_moods": ["heartbreak", "romantic", "vulnerable", "warm"],
+      "era_notes": {
+        "1990s": "Neo-soul golden era defined by Lauryn Hill, Erykah Badu, and D'Angelo. The Miseducation of Lauryn Hill (1998) redefined what R&B could be."
+      }
+    },
+    "reggaeton": {
+      "description": "Latin urban music built on dembow rhythms, Caribbean influences, and danceable beats. Dominates global streaming charts.",
+      "related_moods": ["hype", "energetic", "party", "confident"],
+      "era_notes": {
+        "2020s": "Bad Bunny became the most-streamed artist globally, proving reggaeton's worldwide dominance."
+      }
+    },
+    "corridos": {
+      "description": "Mexican regional music blending traditional corrido storytelling with modern trap and urban production. Corridos tumbados modernized the genre.",
+      "related_moods": ["intense", "bold", "confident", "aggressive"],
+      "era_notes": {
+        "2020s": "Fuerza Regida and Peso Pluma brought corridos tumbados to Billboard charts, fusing regional Mexican with trap beats."
+      }
+    },
+    "hip-hop": {
+      "description": "Rhythm-driven music built on beats, sampling, and lyrical flow. Ranges from conscious rap to trap to boom-bap.",
+      "related_moods": ["confident", "nostalgic", "hype", "aggressive"],
+      "era_notes": {
+        "1990s": "Golden age of conscious hip-hop. Lauryn Hill, Nas, and Wu-Tang Clan pushed lyrical and production boundaries."
+      }
+    },
+    "prog-rock": {
+      "description": "Progressive rock features complex time signatures, virtuosic musicianship, and genre-defying compositions. Often blends rock with jazz, classical, and math-rock.",
+      "related_moods": ["energetic", "chaotic", "intense"],
+      "era_notes": {
+        "2010s": "Modern prog bands like Thank You Scientist and Haken brought jazz-fusion energy to progressive rock, creating technically demanding but accessible music."
+      }
+    }
+  },
+  "moods": {
+    "happy": {
+      "description": "Upbeat, positive, feel-good music that lifts the listener's spirits.",
+      "similar_moods": ["uplifting", "breezy", "euphoric"],
+      "opposite_moods": ["melancholic", "dark"]
+    },
+    "chill": {
+      "description": "Relaxed, low-energy music for unwinding or background listening.",
+      "similar_moods": ["relaxed", "peaceful", "dreamy"],
+      "opposite_moods": ["intense", "aggressive", "hype"]
+    },
+    "intense": {
+      "description": "High-energy, driving music with urgency and power.",
+      "similar_moods": ["aggressive", "energetic", "pumped"],
+      "opposite_moods": ["chill", "relaxed", "peaceful"]
+    },
+    "melancholic": {
+      "description": "Sad, reflective music with emotional weight and introspective depth.",
+      "similar_moods": ["heartbreak", "vulnerable", "brooding", "dark"],
+      "opposite_moods": ["happy", "euphoric", "hype"]
+    },
+    "heartbreak": {
+      "description": "Music about loss, longing, and emotional pain. Raw vulnerability.",
+      "similar_moods": ["melancholic", "vulnerable", "dark"],
+      "opposite_moods": ["happy", "confident", "hype"]
+    },
+    "dark": {
+      "description": "Moody, atmospheric music with shadowy tones and brooding energy.",
+      "similar_moods": ["melancholic", "brooding", "moody"],
+      "opposite_moods": ["happy", "breezy", "uplifting"]
+    },
+    "hype": {
+      "description": "Get-pumped, party-ready music designed to energize and excite.",
+      "similar_moods": ["energetic", "pumped", "confident", "party"],
+      "opposite_moods": ["chill", "melancholic", "peaceful"]
+    },
+    "romantic": {
+      "description": "Tender, love-inspired music with warmth and emotional intimacy.",
+      "similar_moods": ["warm", "dreamy", "vulnerable"],
+      "opposite_moods": ["aggressive", "intense"]
+    },
+    "nostalgic": {
+      "description": "Music that evokes memories, past eras, and bittersweet reflection.",
+      "similar_moods": ["warm", "reflective", "melancholic", "dreamy"],
+      "opposite_moods": ["hype", "aggressive"]
+    },
+    "focused": {
+      "description": "Concentration-friendly music with minimal distractions. Often instrumental.",
+      "similar_moods": ["chill", "studious", "peaceful"],
+      "opposite_moods": ["hype", "chaotic", "aggressive"]
+    },
+    "energetic": {
+      "description": "High-tempo, driving music that makes you want to move.",
+      "similar_moods": ["hype", "pumped", "intense"],
+      "opposite_moods": ["chill", "relaxed", "peaceful"]
+    },
+    "relaxed": {
+      "description": "Easy-going, calm music without tension or urgency.",
+      "similar_moods": ["chill", "warm", "peaceful"],
+      "opposite_moods": ["intense", "aggressive"]
+    },
+    "moody": {
+      "description": "Atmospheric music with emotional complexity and shifting tones.",
+      "similar_moods": ["dark", "nostalgic", "brooding"],
+      "opposite_moods": ["happy", "breezy"]
+    },
+    "confident": {
+      "description": "Self-assured, bold music that projects strength and swagger.",
+      "similar_moods": ["hype", "bold", "energetic"],
+      "opposite_moods": ["vulnerable", "melancholic"]
+    }
+  },
+  "artists": {
+    "Lauryn Hill": {
+      "bio": "Legendary singer-rapper who defined neo-soul with The Miseducation of Lauryn Hill (1998). Known for blending hip-hop, R&B, and reggae with deeply personal lyrics about love, identity, and social justice.",
+      "signature_style": "Raw vocal power, acoustic guitar over hip-hop beats, confessional storytelling",
+      "catalog_songs": ["Ex-Factor", "Every Ghetto Every City"]
+    },
+    "Cold": {
+      "bio": "Post-grunge/alt-rock band from Jacksonville, FL. Known for emotionally heavy, guitar-driven songs exploring pain, isolation, and vulnerability.",
+      "signature_style": "Atmospheric guitars, Scooter Ward's haunting vocals, slow-burn emotional intensity",
+      "catalog_songs": ["Cure My Tragedy", "Remedy", "Suffocate"]
+    },
+    "AFI": {
+      "bio": "Evolving punk/alt-rock band that moved from hardcore punk to atmospheric, darkwave-influenced rock. Known for dramatic, theatrical performances.",
+      "signature_style": "Dark melodic hooks, Davey Havok's dynamic vocals, gothic-tinged alt-rock",
+      "catalog_songs": ["Fainting Spells"]
+    },
+    "Bad Bunny & Yaviah": {
+      "bio": "Bad Bunny is the most-streamed artist globally and a pioneer of Latin trap and reggaeton. Yaviah is a Puerto Rican reggaeton veteran.",
+      "signature_style": "Dembow rhythms, genre-blending production, bilingual vocals",
+      "catalog_songs": ["Bichiyal"]
+    },
+    "Fuerza Regida": {
+      "bio": "Tijuana-born group at the forefront of corridos tumbados — a fusion of traditional Mexican corridos with modern trap production.",
+      "signature_style": "Requinto guitar meets 808 bass, aggressive delivery, street storytelling",
+      "catalog_songs": ["TUQLO"]
+    },
+    "Michael Jackson": {
+      "bio": "The King of Pop. Defined pop music across the 1980s and 1990s with unmatched artistry in songwriting, dancing, and visual storytelling.",
+      "signature_style": "Smooth vocals, groove-heavy production, cinematic music videos",
+      "catalog_songs": ["Human Nature"]
+    },
+    "Thank You Scientist": {
+      "bio": "Progressive rock/jazz fusion band from New Jersey known for technically demanding compositions featuring brass, strings, and complex time signatures.",
+      "signature_style": "Math-rock precision, jazz improvisation, controlled chaos",
+      "catalog_songs": ["Make Like a Tree (Get Out)"]
+    }
+  },
+  "music_concepts": {
+    "content_based_filtering": {
+      "description": "A recommendation approach that matches items to users based on item features (genre, mood, energy) rather than user behavior. Works well with small catalogs but can't discover unexpected preferences.",
+      "strengths": "No cold-start problem for items, transparent reasoning, works with small datasets",
+      "weaknesses": "Can create filter bubbles, can't capture social trends, limited to known features"
+    },
+    "mood_similarity": {
+      "description": "Related moods should receive partial credit instead of zero. For example, 'heartbreak' and 'melancholic' are emotionally adjacent and should score partial matches.",
+      "example": "A user wanting 'heartbreak' mood should get partial credit for 'melancholic' songs (e.g., +2.0 instead of +3.0) rather than zero."
+    },
+    "filter_bubbles": {
+      "description": "When recommendation systems only show content similar to what a user already likes, they create an echo chamber that limits discovery. Diversity penalties help break filter bubbles.",
+      "real_world": "Spotify's Discover Weekly algorithm intentionally includes some unfamiliar genres to prevent total filter bubbles."
+    },
+    "hybrid_recommender": {
+      "description": "Combines content-based filtering (matching features) with collaborative signals (popularity, play counts) for better recommendations than either approach alone.",
+      "example": "Using both mood-matching scores AND popularity data to rank songs."
+    }
+  }
+}

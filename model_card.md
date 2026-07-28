@@ -1,92 +1,102 @@
-# 🎧 Model Card: Music Recommender Simulation
+﻿# Model Card: Music Recommender -- Applied AI System
 
-## 1. Model Name  
+## Model Overview
 
-**MoodMatch 1.0**  
+| Field | Details |
+|-------|---------|
+| **System Name** | Applied AI Music Recommender |
+| **Version** | 2.0 (Extended from Module 1-3 Music Recommender Simulation) |
+| **Models Used** | Hermes3 (agentic planning, self-critique) + Qwen3 (text generation, explanations) |
+| **Runtime** | Ollama (local, open-source, no API key required) |
+| **Type** | Hybrid content-based recommendation system with agentic AI orchestration |
+| **Dataset** | 26,399 songs sourced from Spotify Tracks Dataset (Kaggle/HuggingFace), 13 genres, 14 moods |
 
----
+## Intended Use
 
-## 2. Intended Use  
+This system recommends music based on user preferences (genre, mood, energy, acoustic preference) and provides AI-powered explanations, bias analysis, and confidence scoring. It is designed as a classroom simulation demonstrating applied AI concepts.
 
-This recommender generates song suggestions from a 20-song catalog based on a user's taste profile. It assumes the user has a single dominant mood preference, a favorite genre, an energy target, and a preference for acoustic or non-acoustic music. This is a classroom exploration project, not intended for production use.
+**Intended users:** Students, educators, and portfolio reviewers evaluating applied AI competency.
 
-**Non-intended use**: This system should not be used as a real music recommendation service. It lacks the data scale, user feedback loops, and contextual awareness needed for real-world recommendations. It should not be used to make assumptions about someone's personality or identity based on their music preferences.
+**Not intended for:** Production music streaming, commercial recommendations, or replacing human curation at scale.
 
----
+## AI Features Integrated
 
-## 3. How the Model Works  
+### 1. Retrieval-Augmented Generation (RAG)
+- **What it does:** Searches a local knowledge base (`music_knowledge.json`) for contextual information about genres, moods, and artists before generating explanations.
+- **Why it matters:** Without RAG, the system can only say "mood match: melancholic (+3.0)." With RAG, it explains *why* the song fits â€” referencing the genre's history, the artist's style, and the emotional connection.
+- **Before RAG:** "genre match: alt-rock (+1.0); mood match: melancholic (+3.0)"
+- **After RAG:** "Cold's 'Cure My Tragedy' captures the introspective vulnerability that defines 2000s post-hardcore, perfectly matching your melancholic preference with its atmospheric guitars and haunting vocals."
 
-The system compares each song in the catalog to what the user says they like. It checks four things:
+### 2. Agentic Workflow
+- **What it does:** An autonomous agent orchestrates an 8-step pipeline: Plan -> Retrieve -> Validate -> Recommend -> Evaluate -> Bias Check -> Confidence/Self-Critique -> Explain.
+- **Self-checking:** The agent validates catalog data quality at runtime, detects missing mood tags or unknown genres, and flags issues before scoring.
+- **Strategy selection:** Hermes3 analyzes user preferences and chooses the optimal scoring strategy (mood-first, genre-first, or energy-focused) with reasoning.
+- **Refinement loop:** If average confidence drops below 0.4, the agent automatically switches strategies and re-runs.
 
-1. **Mood** — Does the song's mood match what the user wants? This is the biggest factor (worth 3 points) because how music *feels* matters most.
-2. **Acousticness** — Does the song's acoustic texture match the user's preference? Worth 2 points. An acoustic lover gets bonus points for acoustic songs; a non-acoustic listener gets points for electronic/produced tracks.
-3. **Genre** — Does the song's genre match? Worth 1.5 points. Important, but less than mood because a user might enjoy multiple genres with the same vibe.
-4. **Energy closeness** — How close is the song's energy level to the user's target? Worth up to 1 point. A song with energy 0.6 is a better match for a user who wants 0.65 than a song at 0.9.
+### 3. Bias Detection
+- **Four independent checks:** Genre concentration, popularity bias, language exclusion, artist domination.
+- **Each check returns:** A detection flag, a 0-1 score, and human-readable details.
+- **LLM summary:** Hermes3 generates a natural-language fairness analysis with actionable suggestions.
 
-The system scores every song, sorts them highest to lowest, and returns the top 5.
+### 4. Confidence Scoring + Self-Critique
+- **Per-recommendation confidence:** Based on score strength (40%), feature match count (40%), and explanation richness (20%).
+- **Self-critique:** Hermes3 reviews all recommendations as a quality auditor, returning structured issues and suggestions.
+- **Refinement trigger:** Low confidence triggers automatic strategy switching.
 
----
+## Limitations and Biases
 
-## 4. Data  
+### Known Limitations
+1. **Catalog size:** 101 songs is realistic for a demo but tiny compared to production systems (Spotify: 100M+ tracks). This limits diversity and coverage.
+2. **Content-based only:** No collaborative filtering. The system can't learn from user behavior because we simulate with preset profiles, not real interaction data.
+3. **Rule-based mood assignment:** Moods are inferred from audio features (valence, energy, acousticness) using rules, not lyrical analysis. A song about heartbreak with an upbeat melody might be mis-tagged as "happy."
+4. **LLM latency:** Each agent run takes 2-5 minutes due to multiple LLM calls through Ollama. Not suitable for real-time use without faster inference or caching.
+5. **Language bias:** The knowledge base is English-centric. Spanish-language songs (reggaeton, corridos) have less contextual knowledge available.
 
-The catalog contains **20 songs** across these genres: pop, lofi, rock, ambient, jazz, synthwave, indie pop, r&b, alt-rock, reggaeton, corridos, hip-hop, prog-rock.
+### Known Biases
+- **Genre coverage gap:** Some moods (e.g., "focused", "relaxed") have fewer songs in the catalog, leading to lower relevance scores for users who prefer them.
+- **Popularity bias in data source:** The Spotify dataset skews toward popular tracks. The sampling strategy mitigates this by pulling from top, middle, and bottom popularity tiers.
+- **Western-centric knowledge base:** Genre descriptions reflect Western music history. Non-Western genres are underrepresented in the knowledge base.
 
-Moods represented include: happy, chill, intense, focused, relaxed, moody, heartbreak, dark, hype, romantic, melancholic, nostalgic, energetic, aggressive, warm, peaceful, euphoric, confident.
+## Could This AI Be Misused?
 
-I added 10 songs from my own music taste (Lauryn Hill, Cold, Bad Bunny, Fuerza Regida, Michael Jackson, AFI, Thank You Scientist) to the original 10 starter songs. Missing from the dataset: K-pop, EDM subgenres, Afrobeats, gospel, and many other global genres. The catalog is too small to represent the full range of musical taste.
+### Potential Misuse
+1. **Filter bubble reinforcement:** A recommender that only shows matching content could narrow users' musical exposure over time.
+2. **Manipulative recommendations:** In a commercial setting, recommendations could be biased toward paid placements or label deals rather than user preference.
+3. **Privacy concerns:** A production version with collaborative filtering would need user listening data, creating privacy risks.
 
----
+### Mitigations Built In
+- **Diversity penalty:** The scoring engine penalizes consecutive same-genre recommendations.
+- **Bias detection:** Every run checks for and reports unfairness.
+- **Transparency:** Confidence scores and explanations make the system's reasoning visible and auditable.
 
-## 5. Strengths  
+## What Surprised Me While Testing
 
-- **Users with a clear, single vibe** get excellent results. The "Chill Lofi Listener" profile scored a near-perfect 7.50 for "Library Rain" — matching on mood, genre, acousticness, and energy simultaneously.
-- **The melancholic alt-rock profile** correctly surfaced AFI and Cold as the top 2 picks, which matches real-world intuition.
-- **The explanation system** makes it transparent *why* each song was recommended, so a user can understand and trust the output.
-- **Acoustic preference** successfully distinguishes organic/unplugged listeners from electronic/produced listeners, pulling in songs like Ex-Factor and Coffee Shop Stories for acoustic fans.
+1. **Qwen3's think blocks:** Qwen3 wraps its responses in `<think>...</think>` tags by default. Initially, stripping these left empty explanations. Adding `/no_think` to prompts and improving the stripping logic fixed this. This taught me that open-source LLMs have model-specific quirks that require defensive coding.
 
----
+2. **The "D" grade:** The evaluation system gave a "D" grade to recommendations from a 20-song catalog. This wasn't a bug â€” it correctly identified that a tiny catalog can't provide good diversity or coverage. Expanding to 101 songs improved grades to B-range, validating the metric.
 
-## 6. Limitations and Bias 
+3. **Strategy selection matters:** Hermes3 consistently chose "mood-first" for emotional moods (melancholic, heartbreak) and "energy-focused" for activity-based profiles. This matched my intuition, showing the LLM was genuinely reasoning about the problem rather than guessing.
 
-- **Edge case failure**: A user wanting "heartbreak" mood at high energy got "Gym Hero" (an intense pop workout song) ranked #1 instead of "Ex-Factor" (Lauryn Hill). This happened because genre match (pop, +1.5) and non-acoustic bonus (+2.0) together outweighed the mood match (+3.0) when combined with energy closeness. The system doesn't understand that heartbreak and intense are emotionally different.
-- **Static profiles can't capture complex tastes**: A user who likes both "chill lofi" for studying and "intense rock" for the gym can't be represented by a single profile. Real apps like Spotify solve this with context-aware playlists.
-- **Small catalog bias**: With only 20 songs, alt-rock is overrepresented (4 songs from Cold/AFI) while many genres have only 1 song. A user who likes hip-hop only has 1 option.
-- **No mood similarity**: The system treats mood as all-or-nothing. "Heartbreak" and "melancholic" are very similar moods, but the system gives 0 points if they don't match exactly.
-- **Acousticness threshold is rigid**: The 0.6 cutoff for "acoustic" is arbitrary. A song with 0.59 acousticness gets zero bonus for an acoustic fan, while 0.60 gets the full +2.0.
+## AI Collaboration Reflection
 
----
+### Helpful AI Suggestion
+When building the RAG system, the AI suggested using mood similarity scoring â€” treating "melancholic" and "heartbreak" as related moods that deserve partial credit (0.7) rather than zero. This directly addressed the biggest weakness in my original project (binary mood matching) and significantly improved recommendation quality for edge cases.
 
-## 7. Evaluation  
+### Flawed AI Suggestion
+The AI initially suggested using Unicode box-drawing characters (â”€, â”€, âš , âœ“) for terminal output formatting. On Windows with cp1252 encoding, these characters crashed the entire application with a `UnicodeEncodeError`. This required replacing all Unicode characters with ASCII equivalents. The AI assumed a Linux/macOS environment where UTF-8 is default, which is a common oversight in cross-platform development.
 
-I tested four user profiles:
+## Ethical Considerations
 
-1. **Melancholic Alt-Rock Fan (Acoustic)** — Top picks: Fainting Spells (AFI), Cure My Tragedy (Cold). These matched my real music taste perfectly.
-2. **High-Energy Pop Lover** — Top pick: Sunrise City. Expected and reasonable.
-3. **Chill Lofi Listener** — Top pick: Library Rain (7.50 score). Perfect match across all features.
-4. **Edge Case: High Energy + Sad Mood** — Top pick: Gym Hero instead of Ex-Factor. This revealed that when mood and genre/acoustic pull in different directions, the non-mood features can override the mood signal despite mood having the highest individual weight.
+Music recommendations shape what people listen to, which shapes culture. A biased recommender could:
+- Systematically underexpose independent or non-English artists
+- Reinforce existing popularity hierarchies
+- Limit musical discovery
 
-**What surprised me**: The edge case profile showed that even though mood has the highest single weight (3.0), the combination of genre (1.5) + acoustic (2.0) = 3.5 can still override it. This means the system isn't truly "mood-first" in all cases — it's only mood-first when other features are neutral.
+This project addresses these concerns through transparent bias detection, diversity penalties, and evaluation metrics that explicitly measure coverage and novelty. The bias detector doesn't just flag problems â€” it generates actionable suggestions for improvement.
 
-I also ran 3 automated pytest tests confirming the scoring logic works correctly for pop, acoustic, and melancholic profiles.
+## References
 
----
-
-## 8. Future Work  
-
-- **Mood similarity scoring**: Instead of exact match, use a similarity map so "heartbreak" and "melancholic" get partial credit (e.g., +2.0 instead of +3.0).
-- **Multiple profiles per user**: Let users have different profiles for different contexts (study mode, workout mode, driving mode).
-- **Diversity penalty**: Prevent the same artist from appearing more than once in the top 5 (Cold has 3 songs that could dominate).
-- **Popularity signal**: Add a simulated play count to create a basic hybrid recommender that blends content-based with collaborative-style signals.
-- **Larger catalog**: 20 songs is too small — expand to 50+ with better genre coverage.
-
----
-
-## 9. Personal Reflection  
-
-**Biggest learning moment**: Realizing that even with mood weighted as the highest single factor (3.0), the *combination* of other features (genre + acoustic = 3.5) can still override it. Designing fair weights is harder than it seems — every choice creates tradeoffs for different user types.
-
-**How AI tools helped**: I used an AI coding assistant throughout the project to brainstorm scoring strategies, generate the initial song attributes for my personal music picks, implement the CSV loading and scoring functions, and design edge-case test profiles. I had to double-check the attribute values it suggested for my songs (genre, mood, energy) since I know those songs personally and could verify whether the numbers felt right.
-
-**What surprised me**: A simple weighted scoring formula with just 4 features can produce recommendations that genuinely "feel" right. When the system recommended Fainting Spells (AFI) and Cure My Tragedy (Cold) as my top picks, those are songs I actually love. It's surprising how far basic math can go in mimicking taste.
-
-**What I'd try next**: Adding mood similarity scoring so that related moods (heartbreak ↔ melancholic, energetic ↔ hype) get partial credit instead of zero. That single change would fix the biggest weakness in the current system.
+- Spotify Tracks Dataset: [maharshipandya/spotify-tracks-dataset](https://www.kaggle.com/datasets/maharshipandya/spotify-tracks-dataset)
+- Hermes3 (NousResearch): Open-source LLM fine-tuned for agentic tasks and function calling
+- Qwen3 (Alibaba): Open-source reasoning and text generation model
+- Ollama: Local LLM runtime (https://ollama.com)

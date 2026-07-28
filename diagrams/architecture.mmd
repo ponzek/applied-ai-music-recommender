@@ -1,10 +1,69 @@
-%% Music Recommender System — Architecture Diagram
-%% This file will be updated with the full system architecture
+%% Music Recommender — Applied AI System Architecture
+%% Shows main components, data flow, and human/testing checkpoints
 
 graph TD
-    A["User Input"] --> B["Recommender Engine"]
-    B --> C["Content-Based Scoring"]
-    B --> D["Strategy Selector"]
-    C --> E["Ranked Results"]
+    subgraph Input
+        A["User Profile<br/>(genre, mood, energy, acoustic)"]
+    end
+
+    subgraph Agent["Agentic Workflow (agent.py)"]
+        B["1. Plan<br/>LLM chooses strategy"]
+        C["2. Retrieve<br/>RAG knowledge lookup"]
+        D["3. Recommend<br/>Score + rank songs"]
+        E["4. Evaluate<br/>Quality metrics"]
+        F["5. Bias Check<br/>Fairness audit"]
+        G["6. Confidence<br/>Score + self-critique"]
+        H{"Confidence<br/>OK?"}
+        I["7. Refine<br/>Switch strategy + re-run"]
+        J["8. Explain<br/>RAG-enhanced explanations"]
+    end
+
+    subgraph Data
+        K["songs.csv<br/>(20 songs)"]
+        L["music_knowledge.json<br/>(genres, moods, artists)"]
+    end
+
+    subgraph Models["Open-Source LLMs (Ollama)"]
+        M["Hermes3<br/>(agentic planning)"]
+        N["Qwen3<br/>(text generation)"]
+    end
+
+    subgraph Output
+        O["Recommendations<br/>+ Explanations"]
+        P["Bias Report"]
+        Q["Confidence Scores"]
+        R["Agent Log File"]
+    end
+
+    subgraph Testing["Human + Automated Testing"]
+        S["pytest<br/>(unit tests)"]
+        T["Test Harness<br/>(predefined inputs)"]
+        U["Human Review<br/>(evaluation tables)"]
+    end
+
+    A --> B
+    B --> C
+    C --> D
     D --> E
-    E --> F["Output / Explanation"]
+    E --> F
+    F --> G
+    G --> H
+    H -- "Low confidence" --> I
+    I --> D
+    H -- "OK" --> J
+    J --> O
+
+    K --> D
+    L --> C
+    M --> B
+    M --> G
+    N --> J
+    N --> F
+
+    D --> P
+    G --> Q
+    B --> R
+
+    O --> S
+    O --> T
+    O --> U
