@@ -3,7 +3,7 @@
 A hybrid content-based music recommendation system with agentic AI orchestration, RAG-enhanced explanations, bias detection, confidence scoring, self-critique, and a Grover's algorithm quantum search simulation.
 
 > **Extended from:** Module 1-3 Music Recommender Simulation  
-> **Course:** AI110 â€” Applied AI  
+> **Course:** AI110 — Applied AI  
 > **Dataset:** 26,399 tracks sourced from the [Spotify Tracks Dataset](https://www.kaggle.com/datasets/maharshipandya/spotify-tracks-dataset) by MaharshiPandya. Audio features (energy, valence, danceability, acousticness) from Spotify's Web API. Mood tags derived via rule-based inference from valence and energy.
 
 ---
@@ -12,16 +12,16 @@ A hybrid content-based music recommendation system with agentic AI orchestration
 
 Takes a user profile (genre, mood, energy level, acoustic preference) and recommends music using a multi-stage AI pipeline:
 
-1. **Plan** â€” Hermes3 analyzes preferences and selects the optimal scoring strategy
-2. **Retrieve** â€” RAG searches a knowledge base for genre/mood/artist context
-3. **Validate** â€” Agent checks catalog data quality (missing fields, unknown genres)
-4. **Recommend** â€” Hybrid scoring engine ranks 26,399 songs
-5. **Evaluate** â€” Measures relevance, diversity, coverage, and novelty
-6. **Bias Check** â€” Context-aware fairness checks (won't flag genre bias if you asked for that genre)
-7. **Confidence + Self-Critique** â€” Rates each recommendation's confidence, Hermes3 reviews for issues
-8. **Refine** â€” If confidence is low, agent switches strategies and re-runs automatically
-9. **Explain** â€” Qwen3 generates RAG-enhanced natural language explanations
-10. **Quantum Search** â€” Grover's algorithm simulation demonstrates O(âˆšN) speedup over classical O(N) search
+1. **Plan** — Hermes3 analyzes preferences and selects the optimal scoring strategy
+2. **Retrieve** — RAG searches a knowledge base for genre/mood/artist context
+3. **Validate** — Agent checks catalog data quality (missing fields, unknown genres)
+4. **Recommend** — Hybrid scoring engine ranks 26,399 songs
+5. **Evaluate** — Measures relevance, diversity, coverage, and novelty
+6. **Bias Check** — Context-aware fairness checks (won't flag genre bias if you asked for that genre)
+7. **Confidence + Self-Critique** — Rates each recommendation's confidence, Hermes3 reviews for issues
+8. **Refine** — If confidence is low, agent switches strategies and re-runs automatically
+9. **Explain** — Qwen3 generates RAG-enhanced natural language explanations
+10. **Quantum Search** — Grover's algorithm simulation demonstrates O(âˆšN) speedup over classical O(N) search
 
 ---
 
@@ -144,31 +144,31 @@ Step 7: Self-Critique — "Mood mismatch: intense mood paired with low energy
   Refinement complete.
 ```
 
-When confidence drops below 0.4, the agent automatically switches strategies and re-runs — no human intervention needed.
+When confidence drops below 0.4, the agent automatically switches strategies and re-runs, no human intervention needed.
 
 ---
 
 ## Architecture
 
 ```
-User Profile â”€â”€â–º Agent Pipeline (agent.py)
-                    â”‚
-                    â”œâ”€â”€ 1. Plan â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–º Hermes3 (strategy selection)
-                    â”œâ”€â”€ 2. Retrieve â”€â”€â”€â”€â”€â”€â–º RAG (music_knowledge.json)
-                    â”œâ”€â”€ 2.5 Validate â”€â”€â”€â”€â”€â–º Data quality check
-                    â”œâ”€â”€ 3. Recommend â”€â”€â”€â”€â”€â–º Scoring engine (recommender.py)
-                    â”œâ”€â”€ 4. Evaluate â”€â”€â”€â”€â”€â”€â–º Quality metrics
-                    â”œâ”€â”€ 5. Bias Check â”€â”€â”€â”€â–º Fairness audit
-                    â”œâ”€â”€ 6. Confidence â”€â”€â”€â”€â–º Per-song rating
-                    â”œâ”€â”€ 7. Self-Critique â”€â–º Hermes3 (quality review)
-                    â”œâ”€â”€ 8. Refine â”€â”€â”€â”€â”€â”€â”€â”€â–º Strategy switch (if needed)
-                    â””â”€â”€ 9. Explain â”€â”€â”€â”€â”€â”€â”€â–º Qwen3 + RAG context
+User Profile ──► Agent Pipeline (agent.py)
+                    │
+                    ├── 1. Plan ──────────► Hermes3 (strategy selection)
+                    ├── 2. Retrieve ──────► RAG (music_knowledge.json)
+                    ├── 2.5 Validate ─────► Data quality check
+                    ├── 3. Recommend ─────► Scoring engine (recommender.py)
+                    ├── 4. Evaluate ──────► Quality metrics
+                    ├── 5. Bias Check ────► Fairness audit
+                    ├── 6. Confidence ────► Per-song rating
+                    ├── 7. Self-Critique ─► Hermes3 (quality review)
+                    ├── 8. Refine ────────► Strategy switch (if needed)
+                    └── 9. Explain ───────► Qwen3 + RAG context
                     
 Quantum Search (quantum_search.py)
-                    â”‚
-                    â”œâ”€â”€ Classical: O(N) linear scan
-                    â””â”€â”€ Grover's:  O(âˆšN) quantum simulation
-                         26,399 songs â†’ 162 iterations (163x speedup)
+                    │
+                    ├── Classical: O(N) linear scan
+                    └── Grover's:  O(√N) quantum simulation
+                         14,267 songs → 93 iterations (153x speedup)
 ```
 
 See [diagrams/architecture.mmd](diagrams/architecture.mmd) for the full Mermaid diagram.
@@ -203,7 +203,7 @@ See [diagrams/architecture.mmd](diagrams/architecture.mmd) for the full Mermaid 
 | **Hermes3** (NousResearch) | Agentic planning, strategy selection, self-critique | Fine-tuned for function calling and structured JSON output. Self-improving agent behavior. |
 | **Qwen3** (Alibaba) | Text generation, RAG-enhanced explanations, bias summaries | Strong reasoning and text quality. Supports `/no_think` for direct output. |
 
-Both models run locally via **Ollama** â€” no API keys, no cloud costs, no data leaving your machine.
+Both models run locally via **Ollama**, no API keys, no cloud costs, no data leaving your machine.
 
 ---
 
@@ -211,7 +211,7 @@ Both models run locally via **Ollama** â€” no API keys, no cloud costs, no 
 
 ### 1. Grover's Algorithm Simulation (Quantum Search)
 - Simulates quantum amplitude amplification on classical hardware
-- Demonstrates O(âˆšN) search: 26,399 songs â†’ 162 iterations vs 26,399 classical operations
+- Demonstrates O(âˆšN) search: 26,399 songs → 162 iterations vs 26,399 classical operations
 - 153x theoretical speedup, scaling to 1,274x at 1M songs
 - Finds the exact same result as classical search with P(target) = 1.0000
 
@@ -237,33 +237,33 @@ Both models run locally via **Ollama** â€” no API keys, no cloud costs, no 
 
 ```
 applied-ai-music-recommender/
-â”œâ”€â”€ data/
-â”‚   â”œâ”€â”€ songs.csv                 # 26,399 songs from Spotify dataset
-â”‚   â””â”€â”€ music_knowledge.json      # RAG knowledge base (genres, moods, artists)
-â”œâ”€â”€ src/
-â”‚   â”œâ”€â”€ main.py                   # CLI entry point (basic/agent/test modes)
-â”‚   â”œâ”€â”€ recommender.py            # Scoring engine + strategy pattern
-â”‚   â”œâ”€â”€ agent.py                  # Agentic workflow orchestrator
-â”‚   â”œâ”€â”€ rag.py                    # Retrieval-Augmented Generation
-â”‚   â”œâ”€â”€ bias_detector.py          # Fairness analysis (4 checks)
-â”‚   â”œâ”€â”€ evaluation.py             # Quality metrics (relevance/diversity/coverage/novelty)
-â”‚   â”œâ”€â”€ confidence.py             # Confidence scoring + self-critique
-â”‚   â”œâ”€â”€ llm_client.py             # Ollama REST client (Hermes3 + Qwen3)
-â”‚   â”œâ”€â”€ logger.py                 # Structured execution logging
-â”‚   â”œâ”€â”€ quantum_search.py         # Grover's algorithm simulation
-â”‚   â””â”€â”€ app.py                    # Streamlit web UI
-â”œâ”€â”€ tests/
-â”‚   â””â”€â”€ test_recommender.py       # 17 tests (scoring, RAG, bias, confidence, evaluation)
-â”œâ”€â”€ scripts/
-â”‚   â””â”€â”€ build_dataset.py          # Dataset download + processing pipeline
-â”œâ”€â”€ diagrams/
-â”‚   â””â”€â”€ architecture.mmd          # System architecture (Mermaid)
-â”œâ”€â”€ logs/                         # Agent execution logs (per-run)
-â”œâ”€â”€ model_card.md                 # Reflection + ethics + limitations
-â”œâ”€â”€ ai_interactions.md            # AI collaboration documentation
-â”œâ”€â”€ requirements.txt              # Python dependencies
-â”œâ”€â”€ .env.example                  # Environment config template
-â””â”€â”€ .gitignore
+├── data/
+│   ├── songs.csv                 # 14,267 songs from Spotify dataset
+│   └── music_knowledge.json      # RAG knowledge base (genres, moods, artists)
+├── src/
+│   ├── main.py                   # CLI entry point (basic/agent/test modes)
+│   ├── recommender.py            # Scoring engine + strategy pattern
+│   ├── agent.py                  # Agentic workflow orchestrator
+│   ├── rag.py                    # Retrieval-Augmented Generation
+│   ├── bias_detector.py          # Fairness analysis (4 checks)
+│   ├── evaluation.py             # Quality metrics (relevance/diversity/coverage/novelty)
+│   ├── confidence.py             # Confidence scoring + self-critique
+│   ├── llm_client.py             # Ollama REST client (Hermes3 + Qwen3)
+│   ├── logger.py                 # Structured execution logging
+│   ├── quantum_search.py         # Grover's algorithm simulation
+│   └── app.py                    # Streamlit web UI
+├── tests/
+│   └── test_recommender.py       # 17 tests (scoring, RAG, bias, confidence, evaluation)
+├── scripts/
+│   └── build_dataset.py          # Dataset download + processing pipeline
+├── diagrams/
+│   └── architecture.mmd          # System architecture (Mermaid)
+├── logs/                         # Agent execution logs (per-run)
+├── model_card.md                 # Reflection + ethics + limitations
+├── ai_interactions.md            # AI collaboration documentation
+├── requirements.txt              # Python dependencies
+├── .env.example                  # Environment config template
+└── .gitignore
 ```
 
 ---
@@ -300,13 +300,9 @@ The LLM could infer mood from song titles and artist names (and would probably b
 - The tradeoff: it can't detect lyrical content (a happy-sounding breakup song gets tagged "happy")
 
 ### Why Grover's Simulation Over Real Quantum?
-Real quantum hardware (IBM Qiskit, etc.) requires cloud access and has noise/decoherence issues. The simulation demonstrates the *mathematical structure* of the algorithm â€” oracle marking + diffusion amplification â€” which is the conceptual insight. The speedup numbers are real: 162 operations vs 26,399 for our catalog.
+Real quantum hardware (IBM Qiskit, etc.) requires cloud access and has noise/decoherence issues. The simulation demonstrates the *mathematical structure* of the algorithm â€” oracle marking + diffusion amplification, which is the conceptual insight. The speedup numbers are real: 162 operations vs 26,399 for our catalog.
 
 ---
-
-## License
-
-Educational project â€” MIT License.
 
 ## Acknowledgments
 
