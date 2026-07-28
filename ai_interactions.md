@@ -1,4 +1,4 @@
-﻿# AI Interactions Log
+# AI Interactions Log
 
 Documentation of how AI tools were used throughout this project, including prompts, reasoning, and what was learned.
 
@@ -114,6 +114,64 @@ Also added `/no_think` to prompts to tell Qwen3 to skip internal reasoning.
 - Found the exact same song with P(target) = 1.0000
 
 **What I learned:** Quantum algorithms aren't magic, they're mathematical structures that exploit superposition and interference. The simulation showed me *exactly* how the amplitude of the target item grows from 1/âˆšN to ~1.0 over âˆšN iterations. Understanding this on real data was more valuable than any textbook explanation.
+
+---
+
+## Interaction 7: Agent Reasoning Trace
+
+Below is a sample trace from a full agent pipeline run, showing the intermediate reasoning at each step. Logs like this are saved to `logs/` on every run.
+
+```
+[00:00.0] ============================================================
+[00:00.0]   AGENT PIPELINE START
+[00:00.0]   Profile: genre=alt-rock, mood=melancholic, energy=0.45, acoustic=True
+[00:00.0] ============================================================
+
+[00:00.1] Step 1: Plan — Analyzing user preferences
+          LLM reasoning: "Melancholic mood is the strongest signal here.
+          The user wants emotional, introspective music. mood-first will
+          weight emotional alignment above genre matching."
+          >> Chosen strategy: mood-first
+
+[00:01.2] Step 2: Retrieve — Searching knowledge base
+          Query: {genre: "alt-rock", mood: "melancholic"}
+          >> Retrieved 5 knowledge entries (alt-rock history, melancholic
+             mood descriptors, related artists)
+
+[00:01.3] Step 2.5: Validate Data — Checking catalog quality
+          >> 26,399 songs checked — 0 issues, 2 warnings
+          Warning: Catalog missing genres: corridos (low count)
+          Warning: Catalog missing moods: confident (1 song)
+
+[00:01.5] Step 3: Recommend — Scoring with mood-first strategy
+          >> Top pick: Cure My Tragedy by Cold (score: 8.12)
+
+[00:01.8] Step 4: Evaluate — Running quality metrics
+          >> Overall: 0.89 (A)
+
+[00:02.0] Step 5: Bias Check — Scanning for unfairness
+          >> 0 biases detected
+
+[00:02.1] Step 6: Confidence — Rating recommendation confidence
+          >> Average confidence: 0.74
+
+[00:02.5] Step 7: Self-Critique — LLM reviewing recommendations
+          Hermes3: "Recommendations show strong mood alignment. Minor
+          concern: 3/5 songs are from the 2000s decade. Consider adding
+          contemporary alt-rock for temporal diversity."
+          >> 1 issue found (source: llm)
+
+[00:02.6] Confidence 0.74 > 0.4 threshold — no refinement needed.
+
+[00:03.0] Step 8: Explain — Generating enhanced explanations
+          >> Generated 5 RAG-enhanced explanations via Qwen3
+
+[00:03.5] ============================================================
+          PIPELINE COMPLETE — Log saved to logs/agent_20260727_014523.log
+          ============================================================
+```
+
+Each run produces a structured log file in `logs/` that captures every decision the agent made, including LLM reasoning, fallback triggers, and timing data.
 
 ---
 

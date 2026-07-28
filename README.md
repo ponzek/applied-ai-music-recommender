@@ -1,4 +1,4 @@
-﻿# Applied AI Music Recommender
+# Applied AI Music Recommender
 
 A hybrid content-based music recommendation system with agentic AI orchestration, RAG-enhanced explanations, bias detection, confidence scoring, self-critique, and a Grover's algorithm quantum search simulation.
 
@@ -80,6 +80,71 @@ streamlit run src/app.py
 # Run tests
 python -m pytest tests/ -v
 ```
+
+### Sample Output
+
+Running `python -m src.main --profile melancholic-rock` produces:
+
+```
+======================================================================
+  MUSIC RECOMMENDER AGENT — FINAL RESULTS
+======================================================================
+  Profile: genre=alt-rock, mood=melancholic, energy=0.45, acoustic=True
+  Strategy: mood-first
+  Refinements: 0
+
+  #   Title                        Artist               Score   Conf   Mood
+  --- ---------------------------- -------------------- ------- ------ ------------
+  1   Cure My Tragedy              Cold                 8.12    0.87   melancholic
+  2   The Reason                   Hoobastank           7.89    0.83   heartbreak
+  3   Another Love (Remix)         Tiesto               7.45    0.67   melancholic
+  4   Resonance                    HOME                 7.22    0.67   moody
+  5   GET IT                       Purity Ring          6.98    0.67   dark
+
+  EVALUATION
+  Relevance:  0.96    Diversity: 0.93    Coverage: 0.07    Novelty: 0.27
+  Grade: A (0.89)
+
+  BIAS CHECK
+  Genre................ OK (4/5 match requested genre alt-rock)
+  Popularity........... OK (avg 58/100)
+  Language............. OK
+  Artist repetition.... OK
+  Verdict: No obvious bias patterns were found.
+
+  CONFIDENCE
+  Average: 0.74
+  Assessment: Recommendations are solid with good preference alignment.
+======================================================================
+```
+
+The system also works with the Streamlit web UI:
+
+```bash
+streamlit run src/app.py
+# Opens browser at http://localhost:8501
+# Select genre, mood, energy, strategy → click Get Recommendations
+```
+
+### Reliability Example (Guardrail in Action)
+
+The evaluation and bias systems act as guardrails. Here's an example where the system **catches a problem and self-corrects**:
+
+```
+Input:  genre=lofi, mood=intense, energy=0.45, acoustic=True
+        Strategy: genre-first, k=5
+
+Step 6: Confidence — Average confidence: 0.38 (LOW)
+Step 7: Self-Critique — "Mood mismatch: intense mood paired with low energy
+        and acoustic preference is contradictory. Recommend switching strategy."
+
+  >> REFINEMENT #1
+  Switching from genre-first to mood-first
+  New average confidence: 0.72 (acceptable)
+  Refinement complete.
+```
+
+When confidence drops below 0.4, the agent automatically switches strategies and re-runs — no human intervention needed.
 
 ---
 
