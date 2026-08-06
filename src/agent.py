@@ -171,7 +171,7 @@ class MusicRecommenderAgent:
             issues = []
             warnings = []
             from collections import Counter
-            from rag import load_knowledge
+            from src.rag import load_knowledge
 
             kb = load_knowledge()
             known_genres = set(kb.get("genres", {}).keys())
