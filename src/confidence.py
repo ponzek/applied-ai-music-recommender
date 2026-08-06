@@ -128,7 +128,7 @@ Average confidence: {avg_confidence:.2f}
 Review these recommendations:"""
 
     try:
-        from llm_client import chat_json, AGENT_MODEL
+        from src.llm_client import chat_json, AGENT_MODEL
         result = chat_json(prompt, model=AGENT_MODEL)
 
         if result.get("parse_error"):

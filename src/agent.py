@@ -4,23 +4,19 @@ Uses Hermes3 for planning and decision-making. Follows a
 Plan → Retrieve → Recommend → Evaluate → Critique → Refine → Explain loop.
 """
 
-import sys
-import os
 import time
 from typing import List, Dict, Tuple, Optional
 
-# Add src to path for imports
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
-from recommender import load_songs, recommend_songs, STRATEGIES
-from rag import retrieve, explain_with_context, get_mood_similarity_score
-from bias_detector import generate_bias_report, format_bias_report, get_llm_bias_summary
-from evaluation import evaluate_recommendations, format_evaluation
-from confidence import (
+from src.recommender import load_songs, recommend_songs, STRATEGIES
+from src.rag import retrieve, explain_with_context, get_mood_similarity_score
+from src.bias_detector import generate_bias_report, format_bias_report, get_llm_bias_summary
+from src.evaluation import evaluate_recommendations, format_evaluation
+from src.confidence import (
     score_all_confidence, self_critique, should_refine,
     format_confidence, format_critique,
 )
-from logger import AgentLogger
+from src.logger import AgentLogger
+
 
 
 class MusicRecommenderAgent:
@@ -324,7 +320,7 @@ class MusicRecommenderAgent:
     def _choose_strategy_with_llm(self, user_prefs: Dict) -> str:
         """Use the LLM to pick the best scoring strategy. Falls back to rules."""
         try:
-            from llm_client import chat_json, AGENT_MODEL
+            from src.llm_client import chat_json, AGENT_MODEL
 
             prompt = f"""You are a music recommendation strategist. Given this user profile, choose the best scoring strategy. Respond in JSON with key "strategy" (one of: "mood-first", "genre-first", "energy-focused") and "reasoning" (one sentence why).
 

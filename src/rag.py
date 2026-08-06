@@ -220,7 +220,7 @@ def explain_with_context(user_prefs: Dict, song: Dict) -> str:
 
     # Try LLM, fall back to basic
     try:
-        from llm_client import chat, TEXT_MODEL
+        from src.llm_client import chat, TEXT_MODEL
         explanation = chat(prompt, model=TEXT_MODEL, temperature=0.6, max_tokens=200)
         return explanation
     except Exception as e:

@@ -214,7 +214,7 @@ Requested genre: {user_prefs.get('genre')}
 """
 
     try:
-        from llm_client import chat, TEXT_MODEL
+        from src.llm_client import chat, TEXT_MODEL
         return chat(prompt, model=TEXT_MODEL, temperature=0.4, max_tokens=120)
     except Exception:
         return report["summary"]["verdict"]

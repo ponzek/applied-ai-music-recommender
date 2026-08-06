@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "music-recommender"
+version = "0.1.0"
+description = "Applied AI Music Recommender — hybrid content-based recommender with agentic pipeline"
+requires-python = ">=3.9"
+dependencies = [
+    "pytest",
+    "python-dotenv",
+    "requests",
+    "streamlit",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

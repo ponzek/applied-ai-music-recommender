@@ -12,15 +12,10 @@ Usage:
   python -m src.main --profile chill-lofi     # Use a preset profile
 """
 
-import sys
-import os
 import argparse
 
-# Add src to path
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
-from recommender import load_songs, recommend_songs, STRATEGIES
-from agent import MusicRecommenderAgent, format_agent_results
+from src.recommender import load_songs, recommend_songs, STRATEGIES
+from src.agent import MusicRecommenderAgent, format_agent_results
 
 
 # ---------------------------------------------------------------------------

@@ -3,17 +3,12 @@
 Run with: streamlit run src/app.py
 """
 
-import sys
-import os
-
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
 import streamlit as st
-from recommender import load_songs, recommend_songs, STRATEGIES
-from rag import explain_with_context
-from bias_detector import generate_bias_report
-from evaluation import evaluate_recommendations
-from confidence import score_all_confidence
+from src.recommender import load_songs, recommend_songs, STRATEGIES
+from src.rag import explain_with_context
+from src.bias_detector import generate_bias_report
+from src.evaluation import evaluate_recommendations
+from src.confidence import score_all_confidence
 
 # Page config
 st.set_page_config(page_title="Music Recommender AI", page_icon="🎵", layout="wide")

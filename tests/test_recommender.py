@@ -4,21 +4,15 @@ Covers: scoring logic, RAG retrieval, bias detection, confidence scoring,
 evaluation metrics, and agent pipeline integration.
 """
 
-import sys
-import os
-
-# Add src to path
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "src"))
-
-from recommender import Song, UserProfile, Recommender, recommend_songs, load_songs, STRATEGIES
-from rag import retrieve, get_mood_similarity_score, get_similar_moods, load_knowledge
-from bias_detector import (
+from src.recommender import Song, UserProfile, Recommender, recommend_songs, load_songs, STRATEGIES
+from src.rag import retrieve, get_mood_similarity_score, get_similar_moods, load_knowledge
+from src.bias_detector import (
     detect_genre_bias, detect_popularity_bias,
     detect_language_bias, detect_artist_concentration,
     generate_bias_report,
 )
-from confidence import score_confidence, score_all_confidence, should_refine
-from evaluation import evaluate_recommendations, score_relevance, score_diversity
+from src.confidence import score_confidence, score_all_confidence, should_refine
+from src.evaluation import evaluate_recommendations, score_relevance, score_diversity
 
 
 # ---------------------------------------------------------------------------

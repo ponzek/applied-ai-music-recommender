@@ -20,11 +20,8 @@ import math
 import random
 import time
 import argparse
-import sys
-import os
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from recommender import load_songs
+from src.recommender import load_songs
 
 
 # ---------------------------------------------------------------------------
